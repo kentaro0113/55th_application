@@ -1,3 +1,15 @@
+<!-- このファイルには固定の文字情報を書いていきます。 -->
 <resources>
-    <string name="app_name">Chibafes55</string>
+    <string name="app_name">55th千葉大祭</string>
+    <string name="app_fullname">第55回千葉大祭アプリ〜for you〜</string>
+
+    <string name="ConfirmFinish">アプリを終了します。</string>
+    <string name="ButtonCancel">キャンセル</string>
+    <string name="ButtonOk">OK</string>
+
+    <string name="EnqueteTitle">アンケートにご協力ください</string>
+    <string name="EnqueteFinishTitle">ありがとうございます</string>
+    <string name="EnqueteFinish">アンケートの回答を送信しました！</string>
+    <string name="EnqueteErrorTItle">通信エラー</string>
+    <string name="EnqueteError">通信に失敗しました。通信環境の良い場所で再度お試しください。</string>
 </resources>
