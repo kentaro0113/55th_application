@@ -24,6 +24,10 @@
             android:name=".MainMenuActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".TimeTableActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
