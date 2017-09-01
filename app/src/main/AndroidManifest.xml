@@ -32,6 +32,10 @@
             android:name=".TimeTableActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".SettingActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
