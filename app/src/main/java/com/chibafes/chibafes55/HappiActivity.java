@@ -10,13 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 /**
- * Created by shiho on 2017/08/31.
+ * Created by shiho on 2017/09/01.
  */
 
-public class TimeTableActivity extends Activity {
-
-    private ListView listView1;
-    private ListView listView2;
+public class HappiActivity extends Activity {
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,17 +24,14 @@ public class TimeTableActivity extends Activity {
         // このActivityに関連づけるレイアウトの設定
         setContentView(R.layout.activity_timetable);
 
-        listView1= (android.widget.ListView) findViewById(R.id.list_timetable);
-        listView2= (android.widget.ListView) findViewById(R.id.list_timetable2);
+        listView= (android.widget.ListView) findViewById(R.id.list_timetable);
 
-        String[] data = new String[(8)];
+        String[] data = new String[(10)];
         for(int i = 0; i < data.length; ++i){
             data[i] ="好きな文字" + i ;
         }
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        listView1.setAdapter(arrayAdapter);
-        listView2.setAdapter(arrayAdapter);
-
+        ArrayAdapter<String> arrayAdapter= new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
+        listView.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -51,6 +46,6 @@ public class TimeTableActivity extends Activity {
         }
         return super.dispatchKeyEvent(event);
     }
-}
 
+}
 
