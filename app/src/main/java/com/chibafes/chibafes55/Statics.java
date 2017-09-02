@@ -7,11 +7,11 @@ package com.chibafes.chibafes55;
  */
 
 public class Statics {
-    public static final String URL_ENQUETE      = "http://";
+    public static final String URL_UPDATE       = "http://demo.chibafes.com/appli/php/55th/update.php";
+    public static final String URL_ENQUETE      = "http://demo.chibafes.com/appli/php/55th/enquete.php";
     public static final String URL_CHIBAFES_WEB = "http://chibafes.com/";
 
     public static final int NONE                = -1;
-
 
     public static final int TYPE_SELECT         = 1; // アンケート：選択式
     public static final int TYPE_TEXT           = 2; // アンケート：記述式

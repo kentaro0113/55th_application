@@ -12,7 +12,7 @@ import android.view.Window;
  * 起動時に呼び出される画面
  */
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
         checkRunState();
 
         // アンケートや情報などをネットワーク更新する処理を開始する
-        // HttpPostAsync postObject = new HttpPostAsync(this);
-        // postObject.execute(Statics.URL_ENQUETE, "check=2");
+        HttpPostAsync postObject = new HttpPostAsync(this);
+        postObject.execute(Statics.URL_UPDATE, "lastdate=" + Commons.readLong(this, "lastdate"));
     }
 
     // ネットワーク更新前処理
@@ -36,7 +36,8 @@ public class MainActivity extends Activity {
     // ネットワーク更新後処理
     public void postExecute(String result, boolean bError) {
         if(result != null && !bError) {
-            //Commons.writeString(this, "Enquete", result);
+            // 正常にデータが取得できた場合、更新処理行う
+
         }
         checkRunState();
     }
