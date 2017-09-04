@@ -46,7 +46,23 @@ public class PageFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_page, container, false);
         TextView textView =(TextView)view.findViewById(R.id.textView);
         textView.setText(String.valueOf(page));
-
+        /*
+        View view = null;
+        switch(page) {
+            case 0:
+                view = inflater.inflate(R.layout.activity_info, container, false);
+                break;
+            case 1:
+                view = inflater.inflate(R.layout.activity_timetable, container, false);
+                break;
+            case 2:
+                view = inflater.inflate(R.layout.activity_setting, container, false);
+                break;
+            default:
+                view = inflater.inflate(R.layout.activity_happi, container, false);
+                break;
+        }
+        */
         return view;
     }
 
@@ -57,8 +73,8 @@ public class PageFragment extends Fragment
 
         if (context instanceof OnFragmentInteractionListener) {
             onFragmentInteractionListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException();
+        //} else {
+        //    throw new RuntimeException();
         }
     }
 

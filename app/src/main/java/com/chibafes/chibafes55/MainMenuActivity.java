@@ -2,20 +2,29 @@ package com.chibafes.chibafes55;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /**
  * MainMenu Activity
  * Created by llrk on 2017/08/04.
  * メインメニュー画面
  */
-public class MainMenuActivity extends Activity implements HttpPostAsync.AsyncTaskCallback {
+public class MainMenuActivity extends AppCompatActivity implements HttpPostAsync.AsyncTaskCallback {
+    private FragmentManager fragmentManager;
+    private TextView textTitle;
+
     // アンケート用変数
     private AlertDialog alartEnquete = null;
     private int nQuestionNo;
@@ -30,6 +39,16 @@ public class MainMenuActivity extends Activity implements HttpPostAsync.AsyncTas
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // このActivityに関連づけるレイアウトの設定
         setContentView(R.layout.activity_mainmenu);
+
+        fragmentManager = getSupportFragmentManager();
+        textTitle = (TextView)findViewById(R.id.textTitle);
+
+        Fragment fragment = new InfoActivity();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.contents,fragment );
+        transaction.addToBackStack(null);
+        transaction.commit();
+        textTitle.setText("INFO");
     }
 
     @Override
@@ -39,14 +58,52 @@ public class MainMenuActivity extends Activity implements HttpPostAsync.AsyncTas
     }
 
 
-    public void onClickButton(View view) {
-        // 仮：ボタンが押された時の処理
-        AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
-        alertDlg.setMessage("ボタン押下テスト");
-        alertDlg.setPositiveButton(
-                getResources().getString(R.string.ButtonOk), null);
+    public void onClickButtonInfo(View view) {
+        Fragment fragment = new InfoActivity();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.contents,fragment );
+        transaction.addToBackStack(null);
+        transaction.commit();
+        textTitle.setText("INFO");
+    }
+    public void onClickButtonSearch(View view) {
+        Fragment fragment = new KikakuAllActivity();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.contents,fragment );
+        transaction.addToBackStack(null);
+        transaction.commit();
+        textTitle.setText("SEARCH");
+    }
+    public void onClickButtonTimeTable(View view) {
+        Fragment fragment = new TimeTableActivity();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.contents,fragment );
+        transaction.addToBackStack(null);
+        transaction.commit();
+        textTitle.setText("TIMETABLE");
+    }
+    public void onClickButtonMap(View view) {
+        /*
+        Fragment fragment = new HappiActivity();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.contents,fragment );
+        transaction.addToBackStack(null);
+        transaction.commit();
+        textTitle.setText("MAP");
+        */
+    }
+    public void onClickButtonHappi(View view) {
+        Fragment fragment = new HappiActivity();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.contents,fragment );
+        transaction.addToBackStack(null);
+        transaction.commit();
+        textTitle.setText("HAPPI");
+    }
 
-        alertDlg.create().show();
+    public void onClickButtonSetting(View view) {
+        Intent intent = new Intent(MainMenuActivity.this, SettingActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -22,9 +22,6 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
         // このActivityに関連づけるレイアウトの設定
         setContentView(R.layout.activity_main);
 
-        // 仮：通信なしで次の画面へ遷移する処理へ
-        checkRunState();
-
         // アンケートや情報などをネットワーク更新する処理を開始する
         HttpPostAsync postObject = new HttpPostAsync(this);
         postObject.execute(Statics.URL_UPDATE, "lastdate=" + Commons.readLong(this, "lastdate"));
@@ -36,7 +33,7 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
     // ネットワーク更新後処理
     public void postExecute(String result, boolean bError) {
         if(result != null && !bError) {
-            // 正常にデータが取得できた場合、更新処理行う
+            // 正常にデータが取得できた場合、更新処理を行う
 
         }
         checkRunState();

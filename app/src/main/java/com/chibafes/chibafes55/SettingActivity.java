@@ -24,6 +24,11 @@ public class SettingActivity extends Activity {
         setContentView(R.layout.activity_setting);
     }
 
+    public void onClickButtonBack(View view) {
+        // この画面を閉じる
+        finish();
+    }
+
     public void onClickButtonAbout(View view){
         new AlertDialog.Builder(this)
                     .setTitle(null)
@@ -35,8 +40,6 @@ public class SettingActivity extends Activity {
         // Webサイトへ遷移する
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Statics.URL_CHIBAFES_WEB));
         startActivity(intent);
-        // 処理が終わったらこのActivityを破棄する
-        finish();
     }
 
     @Override
@@ -45,7 +48,8 @@ public class SettingActivity extends Activity {
             switch (event.getKeyCode()) {
                 // バックキー押下時の処理
                 case KeyEvent.KEYCODE_BACK:
-                    // バックキーを押しても何も起きないようにする
+                    // 設定画面を閉じる
+                    finish();
                     return true;
             }
         }

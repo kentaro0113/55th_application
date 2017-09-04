@@ -3,8 +3,11 @@ package com.chibafes.chibafes55;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -13,9 +16,18 @@ import android.widget.ListView;
  * Created by shiho on 2017/09/01.
  */
 
-public class HappiActivity extends Activity {
+// 0903_kimura:ActivityからFragmentへ変更、それに伴う調整
+public class HappiActivity extends Fragment {
     private ListView listView;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_happi, container, false);
+    }
+
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +58,6 @@ public class HappiActivity extends Activity {
         }
         return super.dispatchKeyEvent(event);
     }
-
+*/
 }
 
