@@ -24,7 +24,7 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
 
         // アンケートや情報などをネットワーク更新する処理を開始する
         HttpPostAsync postObject = new HttpPostAsync(this);
-        postObject.execute(Statics.URL_UPDATE, "lastdate=" + Commons.readLong(this, "lastdate"));
+        postObject.execute(Statics.URL_UPDATE, "lastdate=" + Commons.readString(this, "lastdate"));
     }
 
     // ネットワーク更新前処理
@@ -33,8 +33,18 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
     // ネットワーク更新後処理
     public void postExecute(String result, boolean bError) {
         if(result != null && !bError) {
+            int i;
             // 正常にデータが取得できた場合、更新処理を行う
-
+            String[] arrStr = result.split("\n");
+            Commons.writeString(this, "lastdate", arrStr[0]);
+            String[] arrCounts = arrStr[1].split(",");
+            for(i = 1; i <= arrCounts.length; ++i) {
+                Commons.writeInt(this, "category_count" + i, Integer.parseInt(arrCounts[i - 1]));
+            }
+            // 仮保存処理
+            for(i = 2; i < arrStr.length; ++i) {
+                Commons.writeString(this, "data" + Statics.DATA_CATEGORY_INFO + "_" + (i - 2), arrStr[i]);
+            }
         }
         checkRunState();
     }

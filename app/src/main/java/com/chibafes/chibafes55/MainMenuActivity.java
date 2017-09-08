@@ -83,14 +83,12 @@ public class MainMenuActivity extends AppCompatActivity implements HttpPostAsync
         textTitle.setText("TIMETABLE");
     }
     public void onClickButtonMap(View view) {
-        /*
-        Fragment fragment = new HappiActivity();
+        Fragment fragment = new MapActivity();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.contents,fragment );
         transaction.addToBackStack(null);
         transaction.commit();
         textTitle.setText("MAP");
-        */
     }
     public void onClickButtonHappi(View view) {
         Fragment fragment = new HappiActivity();

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
@@ -19,8 +18,7 @@
             android:onClick="onClickButtonBack"
             android:padding="4dp"
             android:scaleType="fitStart"
-            android:src="?android:attr/homeAsUpIndicator"
-            app:srcCompat="?android:attr/homeAsUpIndicator" />
+            android:src="?android:attr/homeAsUpIndicator"/>
 
         <TextView
             android:id="@+id/Title"
@@ -40,32 +38,32 @@
             android:background="@null"
             android:padding="4dp"
             android:scaleType="fitEnd"
-            app:srcCompat="@null" />
+            android:src="@null" />
     </LinearLayout>
 
     <Button
         android:id="@+id/button_belong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="所属の選択" />
 
     <Button
         android:id="@+id/button_fontsize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="文字サイズ" />
 
     <Button
         android:id="@+id/button_about_app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickButtonAbout"
-        android:text="Button" />
+        android:text="このアプリについて" />
 
     <Button
         android:id="@+id/button_to_web"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickButtonToWeb"
-        android:text="Button" />
+        android:text="千葉大祭ホームページはこちら" />
 </LinearLayout>
