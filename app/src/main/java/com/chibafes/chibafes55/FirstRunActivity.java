@@ -27,7 +27,7 @@ public class FirstRunActivity extends Activity {
 
     public void onClickButton(View view) {
         // メインメニューへ遷移する
-        Intent intent = new Intent(FirstRunActivity.this, MainMenuActivity.class);
+        Intent intent = new Intent(FirstRunActivity.this, TimeTableActivity.class);
         startActivity(intent);
         // 処理が終わったらこのActivityを破棄する
         finish();
