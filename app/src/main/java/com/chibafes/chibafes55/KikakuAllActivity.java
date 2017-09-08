@@ -28,10 +28,6 @@ public class KikakuAllActivity extends Fragment implements ViewPager.OnPageChang
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_kikakuall, container, false);
 
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setTitle("TITLE");
-        //setSupportActionBar(toolbar);
-
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
 
