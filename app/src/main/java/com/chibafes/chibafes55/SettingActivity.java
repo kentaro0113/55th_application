@@ -32,7 +32,7 @@ public class SettingActivity extends Activity {
     public void onClickButtonAbout(View view){
         new AlertDialog.Builder(this)
                     .setTitle(null)
-                    .setMessage("ChibaFlier  Copyright © 第55回千葉大祭実行委員会事務局")
+                    .setMessage("55th千葉大祭公式アプリ For you  Copyright © 第55回千葉大祭実行委員会事務局")
                     .setPositiveButton("OK",null)
                     .show();
     }
