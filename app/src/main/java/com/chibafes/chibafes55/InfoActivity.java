@@ -18,7 +18,6 @@ import android.widget.ListView;
 // 0903_kimura:ActivityからFragmentへ変更、それに伴う調整
 public class InfoActivity extends Fragment {
 
-    private ListView listview1;
     private ListView listview2;
 
     @Override
@@ -27,7 +26,6 @@ public class InfoActivity extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_info, container, false);
 
-        listview1 = (ListView) view.findViewById(R.id.listview1);
         listview2 = (ListView) view.findViewById(R.id.listview2);
 
         String[] data = new String[8];
@@ -36,7 +34,6 @@ public class InfoActivity extends Fragment {
         }
 
         ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, data);
-        listview1.setAdapter(arrayAdapter1);
         listview2.setAdapter(arrayAdapter1);
 
         return view;
