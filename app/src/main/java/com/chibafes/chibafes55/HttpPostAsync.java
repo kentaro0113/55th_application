@@ -94,7 +94,7 @@ public class HttpPostAsync extends AsyncTask<String, Integer, String> {
                     StringBuilder sb = new StringBuilder();
                     String buf;
                     while ((buf = br.readLine()) != null) {
-                        sb.append(buf);
+                        sb.append(buf + "\n"); // 改行コードを付与する形に変更
                         Log.d("HTTP_POST", buf);
                     }
                     result = new String(sb);
