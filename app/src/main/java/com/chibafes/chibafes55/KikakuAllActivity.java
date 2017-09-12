@@ -20,7 +20,7 @@ import android.view.Window;
 // 0903_kimura:ActivityからFragmentへ変更、それに伴う調整
 public class KikakuAllActivity extends Fragment implements ViewPager.OnPageChangeListener, PageFragment.OnFragmentInteractionListener
 {
-    private static final String[] pageTitle = {"PAGE1", "PAGE2", "PAGE3"};
+    private static final String[] pageTitle = {"検索", "お気に入り"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,48 +59,7 @@ public class KikakuAllActivity extends Fragment implements ViewPager.OnPageChang
 
         return view;
     }
-/*
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_kikakuall);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("TITLE");
-        setSupportActionBar(toolbar);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-
-        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager())
-        {
-            @Override
-            public Fragment getItem(int position)
-            {
-                return PageFragment.newInstance(position + 1);
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position)
-            {
-                return pageTitle[position];
-            }
-
-            @Override
-            public int getCount()
-            {
-                return pageTitle.length;
-            }
-        };
-
-        viewPager.setAdapter(fragmentPagerAdapter);
-        viewPager.addOnPageChangeListener(this);
-
-        tabLayout.setupWithViewPager(viewPager);
-    }
-    */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 

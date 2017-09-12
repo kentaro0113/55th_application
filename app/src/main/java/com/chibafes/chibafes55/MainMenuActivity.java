@@ -43,12 +43,8 @@ public class MainMenuActivity extends AppCompatActivity implements HttpPostAsync
         fragmentManager = getSupportFragmentManager();
         textTitle = (TextView)findViewById(R.id.textTitle);
 
-        Fragment fragment = new InfoActivity();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment );
-        transaction.addToBackStack(null);
-        transaction.commit();
-        textTitle.setText("INFO");
+        // 初期メニューはINFOを表示する
+        onClickButtonInfo(null);
     }
 
     @Override
@@ -64,39 +60,39 @@ public class MainMenuActivity extends AppCompatActivity implements HttpPostAsync
         transaction.replace(R.id.contents,fragment );
         transaction.addToBackStack(null);
         transaction.commit();
-        textTitle.setText("INFO");
+        textTitle.setText(getResources().getString(R.string.TitleInfo));
     }
     public void onClickButtonSearch(View view) {
         Fragment fragment = new KikakuAllActivity();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment );
+        transaction.replace(R.id.contents,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        textTitle.setText("SEARCH");
+        textTitle.setText(getResources().getString(R.string.TitleSearch));
     }
     public void onClickButtonTimeTable(View view) {
         Fragment fragment = new TimeTableActivity();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment );
+        transaction.replace(R.id.contents,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        textTitle.setText("TIMETABLE");
+        textTitle.setText(getResources().getString(R.string.TitleTimeTable));
     }
     public void onClickButtonMap(View view) {
         Fragment fragment = new MapActivity();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment );
+        transaction.replace(R.id.contents,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        textTitle.setText("MAP");
+        textTitle.setText(getResources().getString(R.string.TitleMap));
     }
     public void onClickButtonHappi(View view) {
         Fragment fragment = new HappiActivity();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment );
+        transaction.replace(R.id.contents,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        textTitle.setText("HAPPI");
+        textTitle.setText(getResources().getString(R.string.TitleHappi));
     }
 
     public void onClickButtonSetting(View view) {

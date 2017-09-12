@@ -3,36 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        app:srcCompat="@android:drawable/btn_dialog" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="27dp"
-        android:layout_height="35dp"
+        android:id="@+id/imagePRCut"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:padding="4dp"
         app:srcCompat="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/textView10"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:text="団体名" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="3">
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/textGroupName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="団体名" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/textGroupSummary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="企画概要" />
+
+        <TextView
+            android:id="@+id/textGroupPlace"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="場所" />
+
+    </LinearLayout>
 
 </LinearLayout>

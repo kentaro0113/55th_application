@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/viewScrollSearch">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/buttonSearchClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
@@ -23,7 +21,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="日付" />
+                android:text="@string/SearchCaptionDay" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView5"
@@ -31,61 +29,61 @@
                 android:layout_height="wrap_content"
                 android:checkMark="@mipmap/ic_launcher"
                 android:checked="false"
-                android:text="CheckedTextView" />
+                android:text="1日目" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkMark="@mipmap/ic_launcher"
-                android:text="CheckedTextView" />
+                android:text="2日目" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkMark="@mipmap/ic_launcher"
-                android:text="CheckedTextView" />
+                android:text="3日目" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkMark="@mipmap/ic_launcher"
-                android:text="CheckedTextView" />
+                android:text="4日目" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ジャンル" />
+                android:text="@string/SearchCaptionGenre" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkMark="@mipmap/ic_launcher"
-                android:text="CheckedTextView" />
+                android:text="展示" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkMark="@mipmap/ic_launcher"
-                android:text="CheckedTextView" />
+                android:text="パフォーマンス" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:checkMark="@mipmap/ic_launcher"
-                android:text="CheckedTextView" />
+                android:text="音楽" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="フリーワード" />
+                android:text="@string/SearchCaptionFreeWord" />
 
             <EditText
                 android:id="@+id/editText"
@@ -96,12 +94,11 @@
                 android:text="Name" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/buttonSearchExec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="検索" />
+                android:text="@string/SearchExec" />
 
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+</ScrollView>

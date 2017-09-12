@@ -12,4 +12,25 @@
     <string name="EnqueteFinish">アンケートの回答を送信しました！</string>
     <string name="EnqueteErrorTItle">通信エラー</string>
     <string name="EnqueteError">通信に失敗しました。通信環境の良い場所で再度お試しください。</string>
+
+    <string name="TitleInfo">運営からのお知らせ・新着情報</string>
+    <string name="TitleSearch">企画検索</string>
+    <string name="TitleTimeTable">タイムテーブル</string>
+    <string name="TitleMap">千葉大祭マップ</string>
+    <string name="TitleHappi">はっぴの部屋</string>
+    <string name="TitleSetting">設定</string>
+
+    <string name="SearchCaptionDay">日付</string>
+    <string name="SearchCaptionGenre">ジャンル</string>
+    <string name="SearchCaptionFreeWord">フリーワード</string>
+    <string name="SearchExec">検索</string>
+
+    <string name="SettingBelong">所属の再設定</string>
+    <string name="SettingText">テキスト設定</string>
+    <string name="SettingAbout">このアプリについて</string>
+    <string name="SettingWeb">千葉大祭ホームページはこちら</string>
+
+    <string name="AboutCopyright">Copyright © 第55回千葉大祭実行委員会事務局</string>
+
+
 </resources>

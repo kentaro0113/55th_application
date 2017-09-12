@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
-            android:text="SETTING"
+            android:text="@string/TitleSetting"
             android:textAlignment="center" />
 
         <ImageButton
@@ -45,25 +45,25 @@
         android:id="@+id/button_belong"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="所属の選択" />
+        android:text="@string/SettingBelong" />
 
     <Button
         android:id="@+id/button_fontsize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="文字サイズ" />
+        android:text="@string/SettingText" />
 
     <Button
         android:id="@+id/button_about_app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickButtonAbout"
-        android:text="このアプリについて" />
+        android:text="@string/SettingAbout" />
 
     <Button
         android:id="@+id/button_to_web"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickButtonToWeb"
-        android:text="千葉大祭ホームページはこちら" />
+        android:text="@string/SettingWeb" />
 </LinearLayout>
