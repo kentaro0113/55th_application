@@ -1,16 +1,20 @@
 package com.chibafes.chibafes55;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.longevitysoft.android.xml.plist.domain.Array;
+import com.longevitysoft.android.xml.plist.domain.Dict;
+import com.longevitysoft.android.xml.plist.domain.PList;
+
+import java.util.ArrayList;
 
 /**
  * Created by shiho on 2017/09/01.
@@ -24,40 +28,76 @@ public class HappiActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_happi, container, false);
-    }
+        final View view = inflater.inflate(R.layout.activity_happi, container, false);
 
-    /*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // タイトルバーの表示設定：非表示にする
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        // このActivityに関連づけるレイアウトの設定
-        setContentView(R.layout.activity_timetable);
+        setHappiSerif(view, Statics.HAPPI_SERIF_NORMAL);
 
-        listView= (android.widget.ListView) findViewById(R.id.list_timetable);
 
-        String[] data = new String[(10)];
-        for(int i = 0; i < data.length; ++i){
-            data[i] ="好きな文字" + i ;
-        }
-        ArrayAdapter<String> arrayAdapter= new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        listView.setAdapter(arrayAdapter);
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (event.getKeyCode()) {
-                // バックキー押下時の処理
-                case KeyEvent.KEYCODE_BACK:
-                    // バックキーを押しても何も起きないようにする
-                    return true;
+        Button buttonHappi = (Button) view.findViewById(R.id.buttonHappi);
+        buttonHappi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setHappiSerif(view, Statics.HAPPI_SERIF_TAP);
             }
-        }
-        return super.dispatchKeyEvent(event);
+        });
+
+        return view;
     }
-*/
+
+    private void setHappiSerif(View view, int nType) {
+
+        int i;
+        ArrayList<String> arraySerif = new ArrayList<>();
+
+        // セリフ情報を読み込み
+        PList listTalk = Commons.getParsedPlist(getActivity(), "HappiTalk.plist");
+        Array list = (Array) listTalk.getRootElement();
+
+        Dict dic;
+
+        switch(nType) {
+            /*
+            case Statics.HAPPI_SERIF_FIRST:
+                // 起動後最初のセリフは専用セリフのみとする
+                // TODO:企画前日からは企画の時間を固定表示させる?
+                dic = (Dict) list.get(Statics.HAPPI_SERIF_FIRST);
+                setSerif(arraySerif, dic);
+                break;
+                */
+            case Statics.HAPPI_SERIF_TAP:
+                // タップ時は通常セリフも含む
+                dic = (Dict) list.get(Statics.HAPPI_SERIF_TAP);
+                setSerif(arraySerif, dic);
+                //
+            case Statics.HAPPI_SERIF_NORMAL:
+                // 通常時のセリフ
+                dic = (Dict) list.get(Statics.HAPPI_SERIF_NORMAL);
+                setSerif(arraySerif, dic);
+
+                break;
+        }
+
+        // セリフの抽選
+        TextView textSerif = (TextView) view.findViewById(R.id.textSerif);
+        textSerif.setText(arraySerif.get(Commons.getRandom(arraySerif.size())));
+
+        // 画像の変更
+        /*
+        if(nCourse == Statics.OTHER_COURSE) {
+            nCourse = 0;
+        }
+        ImageView imageLincle = (ImageView) findViewById(R.id.imageLincle);
+        int nImageId = getResources().getIdentifier("lincle" + nCourse + "_" + (Commons.getRandom(2) + 1), "drawable", getPackageName());
+        imageLincle.setImageResource(nImageId);
+        */
+    }
+
+    private void setSerif(ArrayList<String> arraySerif, Dict dic) {
+        Array list = dic.getConfigurationArray("serif");
+        for(int i = 0; i < list.size(); ++i) {
+            arraySerif.add(((com.longevitysoft.android.xml.plist.domain.String)list.get(i)).getValue());
+        }
+    }
+
 }
 

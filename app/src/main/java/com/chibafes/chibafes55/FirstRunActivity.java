@@ -30,8 +30,8 @@ import android.widget.TextView;
 
 
     // FirstRunActivityからFragmentへ変更、それに伴う調整
-    public class FirstRunActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, PageFragment.OnFragmentInteractionListener {
-    private static final String[] pageTitle = {"PAGE1", "PAGE2", "PAGE3", "PAGE4"};
+public class FirstRunActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, PageFragment.OnFragmentInteractionListener {
+    private static final String[] arrFileName = {"tutorial1", "tutorial2", "tutorial3", "tutorial4", "tutorial5", "tutorial6", "tutorial7", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +47,17 @@ import android.widget.TextView;
         FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return FirstRunFragment.newInstance(position + 1);
+                return FirstRunFragment.newInstance(arrFileName[position]);
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return pageTitle[position];
+                return arrFileName[position];
             }
 
             @Override
             public int getCount() {
-                return pageTitle.length;
+                return arrFileName.length;
             }
         };
 
@@ -95,7 +95,7 @@ import android.widget.TextView;
 
     @Override
     public void onPageSelected(int position) {
-        if(position >= 3) {
+        if(position >= arrFileName.length - 1) {
 
             // メインメニューへ遷移する
             Intent intent = new Intent(FirstRunActivity.this, MainMenuActivity.class);
@@ -125,10 +125,10 @@ class FirstRunFragment extends Fragment
 
             public FirstRunFragment() {}
 
-            public static FirstRunFragment newInstance(int page)
+            public static FirstRunFragment newInstance(String sFileName)
             {
                 Bundle bundle = new Bundle();
-                bundle.putInt(PAGE, page);
+                bundle.putString(PAGE, sFileName);
 
                 FirstRunFragment firstrunFragment = new FirstRunFragment();
                 firstrunFragment.setArguments(bundle);
@@ -145,24 +145,14 @@ class FirstRunFragment extends Fragment
             @Override
             public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
             {
-                int page = getArguments().getInt(PAGE, 0);
+                String sFileName = getArguments().getString(PAGE, "");
 
                 View view = inflater.inflate(R.layout.activity_firstrun2, container, false);
                 ImageView imageTutorial =(ImageView)view.findViewById(R.id.imageTutorial);
-                ;
 
-        switch(page) {
-            case 1:
-                imageTutorial.setImageResource(R.drawable.happi4);
-                break;
-            case 2:
-                imageTutorial.setImageResource(R.drawable.happi3);
-                break;
-            default:
-                imageTutorial.setImageResource(R.drawable.happi1);
-                break;
-        }
-
+                if(!sFileName.equals("")) {
+                    imageTutorial.setImageResource(getContext().getResources().getIdentifier(sFileName, "drawable", getContext().getPackageName()));
+                }
                 return view;
             }
 

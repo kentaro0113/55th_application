@@ -21,4 +21,8 @@ public class Statics {
     public static final int DATA_CATEGORY_KIKAKU    = 2; // データカテゴリ：企画
     public static final int DATA_CATEGORY_STAGE     = 3; // データカテゴリ：ステージ
     public static final int DATA_CATEGORY_STREET    = 4; // データカテゴリ：ストパ
+
+    public static final int HAPPI_SERIF_NORMAL = 0;   // 通常時のセリフ
+    public static final int HAPPI_SERIF_TAP    = 1;   // タップした時のセリフ
+    public static final int HAPPI_SERIF_FIRST  = 2;   // 起動後最初のセリフ
 }
