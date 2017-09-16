@@ -29,7 +29,7 @@ public class InfoActivity extends Fragment {
     public static final int INFO_INDEX_TIME    = 4;
 
     private ListView listview2;
-    private AlertDialog alertSearch = null;
+    private AlertDialog alertInfo = null;
     private LinearLayout viewInfo = null;
 
     private InfoItem[] arrInfoItem;
@@ -77,7 +77,7 @@ public class InfoActivity extends Fragment {
                 textTime.setText(item.getTime("M/d h:m:s"));
                 TextView textMessage = (TextView) viewInfo.findViewById(R.id.textMessage);
                 textMessage.setText(item.getMessage());
-                alertSearch.show();
+                alertInfo.show();
             }
         });
         // 新着情報の詳細ウィンドウビューの設定
@@ -87,10 +87,10 @@ public class InfoActivity extends Fragment {
             // 閉じるボタンを押した時の処理
             @Override
             public void onClick(View v) {
-                alertSearch.dismiss();
+                alertInfo.dismiss();
             }
         });
-        alertSearch = new AlertDialog.Builder(getActivity()).setView(viewInfo).create();
+        alertInfo = new AlertDialog.Builder(getActivity()).setView(viewInfo).create();
 
         return view;
     }
