@@ -1,11 +1,9 @@
 package com.chibafes.chibafes55;
 
 import android.content.Context;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -49,7 +46,7 @@ public class PageFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        viewSearch = (ScrollView) getActivity().getLayoutInflater().inflate(R.layout.activity_kikakusearch, null);
+        viewSearch = (ScrollView) getActivity().getLayoutInflater().inflate(R.layout.window_kikakusearch, null);
         ImageButton buttonClose = (ImageButton) viewSearch.findViewById(R.id.buttonSearchClose);
         buttonClose.setOnClickListener(new View.OnClickListener() {
             @Override

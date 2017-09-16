@@ -13,7 +13,7 @@
     <string name="EnqueteErrorTItle">通信エラー</string>
     <string name="EnqueteError">通信に失敗しました。通信環境の良い場所で再度お試しください。</string>
 
-    <string name="TitleInfo">運営からのお知らせ・新着情報</string>
+    <string name="TitleInfo">お知らせ・新着情報</string>
     <string name="TitleSearch">企画検索</string>
     <string name="TitleTimeTable">タイムテーブル</string>
     <string name="TitleMap">千葉大祭マップ</string>
