@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 
     // FirstRunActivityからFragmentへ変更、それに伴う調整
-public class FirstRunActivity extends FragmentActivity implements ViewPager.OnPageChangeListener, PageFragment.OnFragmentInteractionListener {
+public class FirstRunActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
     private static final String[] arrFileName = {"tutorial1", "tutorial2", "tutorial3", "tutorial4", "tutorial5", "tutorial6", "tutorial7", ""};
 
     @Override
@@ -110,73 +110,51 @@ public class FirstRunActivity extends FragmentActivity implements ViewPager.OnPa
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
+    public static class FirstRunFragment extends Fragment {
+        private static final String PAGE = "PAGE";
 
+        public FirstRunFragment() {
+        }
+
+        public static FirstRunFragment newInstance(String sFileName) {
+            Bundle bundle = new Bundle();
+            bundle.putString(PAGE, sFileName);
+
+            FirstRunFragment firstrunFragment = new FirstRunFragment();
+            firstrunFragment.setArguments(bundle);
+
+            return firstrunFragment;
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            String sFileName = getArguments().getString(PAGE, "");
+
+            View view = inflater.inflate(R.layout.activity_firstrun2, container, false);
+            ImageView imageTutorial = (ImageView) view.findViewById(R.id.imageTutorial);
+
+            if (!sFileName.equals("")) {
+                imageTutorial.setImageResource(getContext().getResources().getIdentifier(sFileName, "drawable", getContext().getPackageName()));
+            }
+            return view;
+        }
+
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+        }
+
+        @Override
+        public void onDetach() {
+            super.onDetach();
+        }
     }
+
 }
 
 
-
-class FirstRunFragment extends Fragment
-{
-            private static final String PAGE = "PAGE";
-            private com.chibafes.chibafes55.FirstRunFragment.OnFragmentInteractionListener onFragmentInteractionListener;
-
-            public FirstRunFragment() {}
-
-            public static FirstRunFragment newInstance(String sFileName)
-            {
-                Bundle bundle = new Bundle();
-                bundle.putString(PAGE, sFileName);
-
-                FirstRunFragment firstrunFragment = new FirstRunFragment();
-                firstrunFragment.setArguments(bundle);
-
-                return firstrunFragment;
-            }
-
-            @Override
-            public void onCreate(Bundle savedInstanceState)
-            {
-                super.onCreate(savedInstanceState);
-            }
-
-            @Override
-            public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-            {
-                String sFileName = getArguments().getString(PAGE, "");
-
-                View view = inflater.inflate(R.layout.activity_firstrun2, container, false);
-                ImageView imageTutorial =(ImageView)view.findViewById(R.id.imageTutorial);
-
-                if(!sFileName.equals("")) {
-                    imageTutorial.setImageResource(getContext().getResources().getIdentifier(sFileName, "drawable", getContext().getPackageName()));
-                }
-                return view;
-            }
-
-            @Override
-            public void onAttach(Context context)
-            {
-                super.onAttach(context);
-
-                if (context instanceof com.chibafes.chibafes55.FirstRunFragment.OnFragmentInteractionListener) {
-                    onFragmentInteractionListener = (com.chibafes.chibafes55.FirstRunFragment.OnFragmentInteractionListener) context;
-                    //} else {
-                    //    throw new RuntimeException();
-                }
-            }
-
-            @Override
-            public void onDetach()
-            {
-                super.onDetach();
-                onFragmentInteractionListener = null;
-            }
-
-            interface OnFragmentInteractionListener
-            {
-                void onFragmentInteraction(Uri uri);
-            }
-        }

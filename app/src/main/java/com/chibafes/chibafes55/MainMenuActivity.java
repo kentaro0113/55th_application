@@ -1,14 +1,13 @@
 package com.chibafes.chibafes55;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -21,7 +20,7 @@ import android.widget.TextView;
  * Created by llrk on 2017/08/04.
  * メインメニュー画面
  */
-public class MainMenuActivity extends AppCompatActivity implements HttpPostAsync.AsyncTaskCallback {
+public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.AsyncTaskCallback {
     private FragmentManager fragmentManager;
     private TextView textTitle;
 
