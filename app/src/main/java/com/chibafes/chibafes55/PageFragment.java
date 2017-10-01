@@ -17,7 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
- * Created by steee on 2017/09/01.
+ * Cr]eated by steee on 2017/09/01.
  */
 
 
@@ -28,6 +28,7 @@ public class PageFragment extends Fragment
     private AlertDialog alertSearch = null;
     private ScrollView viewSearch;
     private ListView listKikaku;
+    private ListView detailKikaku;
 
     public PageFragment() {}
 
