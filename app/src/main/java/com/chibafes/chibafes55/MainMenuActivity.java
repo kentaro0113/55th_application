@@ -2,6 +2,7 @@ package com.chibafes.chibafes55;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -11,7 +12,9 @@ import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,6 +26,8 @@ import android.widget.TextView;
 public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.AsyncTaskCallback {
     private FragmentManager fragmentManager;
     private TextView textTitle;
+    private String[] arrTabImages = {"icon_info", "icon_search", "icon_timetable", "icon_map", "icon_happi"};
+    private int[] arrTabItemIds = {R.id.buttonMenuInfo, R.id.buttonMenuSearch, R.id.buttonMenuTimeTable, R.id.buttonMenuMap, R.id.buttonMenuHappi};
 
     // アンケート用変数
     private AlertDialog alartEnquete = null;
@@ -44,6 +49,9 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
 
         // 初期メニューはINFOを表示する
         onClickButtonInfo(null);
+
+        // 画面遷移時に状態によってダイアログを表示する
+        checkStartDialog();
     }
 
     @Override
@@ -52,51 +60,66 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
         // 画面が表示されるたびに呼び出される
     }
 
-
     public void onClickButtonInfo(View view) {
         Fragment fragment = new InfoActivity();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment );
-        transaction.addToBackStack(null);
-        transaction.commit();
-        textTitle.setText(getResources().getString(R.string.TitleInfo));
+        changeFragment(0, fragment, R.string.TitleInfo);
     }
     public void onClickButtonSearch(View view) {
         Fragment fragment = new KikakuAllActivity();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-        textTitle.setText(getResources().getString(R.string.TitleSearch));
+        changeFragment(1, fragment, R.string.TitleSearch);
     }
     public void onClickButtonTimeTable(View view) {
         Fragment fragment = new TimeTableActivity();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-        textTitle.setText(getResources().getString(R.string.TitleTimeTable));
+        changeFragment(2, fragment, R.string.TitleTimeTable);
     }
     public void onClickButtonMap(View view) {
         Fragment fragment = new MapActivity();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.contents,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-        textTitle.setText(getResources().getString(R.string.TitleMap));
+        changeFragment(3, fragment, R.string.TitleMap);
     }
     public void onClickButtonHappi(View view) {
         Fragment fragment = new HappiActivity();
+        changeFragment(4, fragment, R.string.TitleHappi);
+    }
+
+    // 画面切り替え処理
+    private void changeFragment(int index, Fragment fragment, int nTitleId) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.contents,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        textTitle.setText(getResources().getString(R.string.TitleHappi));
+        textTitle.setText(getResources().getString(nTitleId));
+        // タブの表示変更
+        for(int i = 0; i < 4; ++i) {
+            String sName = arrTabImages[i];
+            ImageButton button = (ImageButton) findViewById(arrTabItemIds[i]);
+            button.setBackgroundColor(Color.argb(255, 255, 255, 255));
+            if(i == index) {
+                sName = sName + "_on";
+                button.setBackgroundColor(Color.argb(255, 0, 0, 0));
+            }
+            button.setImageResource(getResources().getIdentifier(sName, "drawable", getPackageName()));
+        }
     }
 
     public void onClickButtonSetting(View view) {
         Intent intent = new Intent(MainMenuActivity.this, SettingActivity.class);
         startActivity(intent);
+    }
+
+    private boolean checkStartDialog() {
+        // 当日最初のログイン時にはっぴガチャポイントを付与
+        String sLastRunDay = Commons.readString(this, "LastRunDay");
+        String sToday = Commons.getTimeString("yyyyMMdd");
+        if(!sToday.equals(sLastRunDay)) {
+            return true;
+        }
+
+        // 新規アンケートのチェック
+        {
+
+        }
+
+        return false;
     }
 
     @Override
@@ -132,7 +155,6 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
         }
         return super.dispatchKeyEvent(event);
     }
-
 
     /*
         アンケート関連処理

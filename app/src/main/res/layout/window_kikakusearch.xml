@@ -21,77 +21,50 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/SearchCaptionDay" />
+                android:background="@android:color/holo_green_light"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:padding="8dp"
+                android:text="@string/SearchCaptionDay"
+                android:textSize="18sp" />
 
-            <CheckedTextView
-                android:id="@+id/checkedTextView5"
+            <com.chibafes.chibafes55.MeasureListView
+                android:id="@+id/listDays"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checkMark="@mipmap/ic_launcher"
-                android:checked="false"
-                android:text="1日目" />
-
-            <CheckedTextView
-                android:id="@+id/checkedTextView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checkMark="@mipmap/ic_launcher"
-                android:text="2日目" />
-
-            <CheckedTextView
-                android:id="@+id/checkedTextView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checkMark="@mipmap/ic_launcher"
-                android:text="3日目" />
-
-            <CheckedTextView
-                android:id="@+id/checkedTextView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checkMark="@mipmap/ic_launcher"
-                android:text="4日目" />
+                android:choiceMode="multipleChoice" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/SearchCaptionGenre" />
+                android:background="@android:color/holo_green_light"
+                android:padding="8dp"
+                android:text="@string/SearchCaptionGenre"
+                android:textSize="18sp" />
 
-            <CheckedTextView
-                android:id="@+id/checkedTextView9"
+            <com.chibafes.chibafes55.MeasureListView
+                android:id="@+id/listGenre"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checkMark="@mipmap/ic_launcher"
-                android:text="展示" />
-
-            <CheckedTextView
-                android:id="@+id/checkedTextView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checkMark="@mipmap/ic_launcher"
-                android:text="パフォーマンス" />
-
-            <CheckedTextView
-                android:id="@+id/checkedTextView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checkMark="@mipmap/ic_launcher"
-                android:text="音楽" />
+                android:layout_height="match_parent"
+                android:choiceMode="multipleChoice" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/SearchCaptionFreeWord" />
+                android:background="@android:color/holo_green_light"
+                android:padding="8dp"
+                android:text="@string/SearchCaptionFreeWord"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="検索したい文字を入力してください"
+                android:inputType="text" />
 
             <Button
                 android:id="@+id/buttonSearchExec"

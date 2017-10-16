@@ -23,6 +23,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by shiho on 2017/08/31.
  */
@@ -55,6 +59,13 @@ public class TimeTableActivity extends Fragment {
         listView1.setAdapter(arrayAdapter);
         */
 
+        String sData = Commons.readString(getActivity(), "data_kikaku");
+        try {
+            JSONArray json = new JSONArray(sData);
+            JSONObject json2 = new JSONObject(sData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         TimeTableItem[] test = new TimeTableItem[6];
         for(int i = 0; i < 6; ++i) {
             test[i] = new TimeTableItem();

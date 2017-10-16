@@ -37,13 +37,14 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
             // 正常にデータが取得できた場合、更新処理を行う
             String[] arrStr = result.split("\n");
             Commons.writeString(this, "lastdate", arrStr[0]);
-            String[] arrCounts = arrStr[1].split(",");
-            for(i = 1; i <= arrCounts.length; ++i) {
-                Commons.writeInt(this, "category_count" + i, Integer.parseInt(arrCounts[i - 1]));
+            if(arrStr[1] != null && arrStr[1].length() > 0) {
+                Commons.writeString(this, "data_kikaku", arrStr[1]);
             }
-            // 仮保存処理
-            for(i = 2; i < arrStr.length; ++i) {
-                Commons.writeString(this, "data" + Statics.DATA_CATEGORY_INFO + "_" + (i - 2), arrStr[i]);
+            if(arrStr[2] != null && arrStr[2].length() > 0) {
+                Commons.writeString(this, "data_news", arrStr[2]);
+            }
+            if(arrStr[3] != null && arrStr[3].length() > 0) {
+                Commons.writeString(this, "data_enquete", arrStr[3]);
             }
         }
         checkRunState();
@@ -58,7 +59,7 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
 
     private void checkRunState() {
         // アプリインストール後の初回起動かどうかのチェックを行う
-        if(Commons.readInt(this, "Course") == Statics.NONE) {
+        if(Commons.readLong(this, "UserID") == Statics.NONE) {
             // 初回起動なら初回起動用の画面へ遷移する
             Intent intent = new Intent(MainActivity.this, FirstRunActivity.class);
             startActivity(intent);

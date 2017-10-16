@@ -30,6 +30,11 @@ public class PageFragment extends Fragment
     private ListView listKikaku;
     private ListView detailKikaku;
 
+    private ListView listDays;
+    private ListView listGenre;
+    private String[] arrDaysNames = {"1日目", "2日目", "3日目", "4日目"};
+    private String[] arrGenreNames = {"展示", "パフォーマンス", "音楽"};
+
     public PageFragment() {}
 
     public static PageFragment newInstance(int page)
@@ -47,6 +52,7 @@ public class PageFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 検索ダイアログの生成
         viewSearch = (ScrollView) getActivity().getLayoutInflater().inflate(R.layout.window_kikakusearch, null);
         ImageButton buttonClose = (ImageButton) viewSearch.findViewById(R.id.buttonSearchClose);
         buttonClose.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +76,12 @@ public class PageFragment extends Fragment
                 alertSearch.dismiss();
             }
         });
+
+        listDays = (ListView) viewSearch.findViewById(R.id.listDays);
+        listDays.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_multiple_choice, arrDaysNames));
+        listGenre = (ListView) viewSearch.findViewById(R.id.listGenre);
+        listGenre.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_multiple_choice, arrGenreNames));
+
         alertSearch = new AlertDialog.Builder(getActivity()).setView(viewSearch).create();
     }
 

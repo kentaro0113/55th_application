@@ -96,6 +96,10 @@ public class FirstRunActivity extends FragmentActivity implements ViewPager.OnPa
     @Override
     public void onPageSelected(int position) {
         if(position >= arrFileName.length - 1) {
+            // 最後のページを開いたら次の画面へ移動する
+            // 現在のミリ秒を保存してユーザIDとして用いる(※重複可能性あり)
+            long currentTimeMillis = System.currentTimeMillis();
+            Commons.writeLong(this, "UserID", currentTimeMillis);
 
             // メインメニューへ遷移する
             Intent intent = new Intent(FirstRunActivity.this, MainMenuActivity.class);
