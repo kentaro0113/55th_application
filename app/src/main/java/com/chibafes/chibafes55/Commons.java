@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -169,5 +173,24 @@ public class Commons {
         SimpleDateFormat sdf = new SimpleDateFormat(formatString);
         return sdf.format(date);
     }
+
+    // ビューサイズに合わせた画像を取得すr
+    public static Bitmap getResizeBitmapFromId(Resources resource, int resourceId, Point size) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(resource, resourceId, options);
+
+        int scaleW = options.outWidth / size.x + 1;
+        int scaleH = options.outHeight / size.y + 1;
+        int scale = Math.max(scaleW, scaleH);
+        options.inJustDecodeBounds = false;
+
+        options.inSampleSize = scale;
+
+        Bitmap image = BitmapFactory.decodeResource(resource, resourceId, options);
+        return image;
+    }
+
+
 
 }

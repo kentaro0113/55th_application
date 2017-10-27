@@ -22,9 +22,19 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
         // このActivityに関連づけるレイアウトの設定
         setContentView(R.layout.activity_main);
 
+
+        String buf = Commons.readString(this, "lastdate");
+        String paramString;
+        if(buf == null) {
+            paramString = "lastdate=0";
+        }
+        else {
+            paramString = "lastdate=" + buf;
+        }
+
         // アンケートや情報などをネットワーク更新する処理を開始する
         HttpPostAsync postObject = new HttpPostAsync(this);
-        postObject.execute(Statics.URL_UPDATE, "lastdate=" + Commons.readString(this, "lastdate"));
+        postObject.execute(Statics.URL_UPDATE, paramString);
     }
 
     // ネットワーク更新前処理
@@ -33,19 +43,17 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
     // ネットワーク更新後処理
     public void postExecute(String result, boolean bError) {
         if(result != null && !bError) {
-            int i;
             // 正常にデータが取得できた場合、更新処理を行う
             String[] arrStr = result.split("\n");
+            String[] arrayKeys = {"data_kikaku", "data_news", "data_enquete", "data_map"};
+
+            for(int i = 1; i <= 4; ++i) {
+                if(arrStr[i] != null && arrStr[i].length() > 0) {
+                    String sBuf = "[" + arrStr[i].replace("}{", "},{") + "]";
+                    Commons.writeString(this, arrayKeys[i - 1], sBuf);
+                }
+            }
             Commons.writeString(this, "lastdate", arrStr[0]);
-            if(arrStr[1] != null && arrStr[1].length() > 0) {
-                Commons.writeString(this, "data_kikaku", arrStr[1]);
-            }
-            if(arrStr[2] != null && arrStr[2].length() > 0) {
-                Commons.writeString(this, "data_news", arrStr[2]);
-            }
-            if(arrStr[3] != null && arrStr[3].length() > 0) {
-                Commons.writeString(this, "data_enquete", arrStr[3]);
-            }
         }
         checkRunState();
     }
@@ -88,3 +96,13 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
         return super.dispatchKeyEvent(event);
     }
 }
+
+/*
+- (void) requestFailed:(NSNotification*)notification {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EnqueteErrorTItle", nil) message:NSLocalizedString(@"EnqueteError", nil) preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ButtonOk", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [self checkRunState];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+
+*/

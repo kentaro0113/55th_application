@@ -3,6 +3,8 @@ package com.chibafes.chibafes55;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -31,7 +33,7 @@ import android.widget.TextView;
 
     // FirstRunActivityからFragmentへ変更、それに伴う調整
 public class FirstRunActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
-    private static final String[] arrFileName = {"tutorial1", "tutorial2", "tutorial3", "tutorial4", "tutorial5", "tutorial6", "tutorial7", ""};
+    private static final String[] arrFileName = {"tutorial1", "tutorial2", "tutorial3", "tutorial4", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +145,8 @@ public class FirstRunActivity extends FragmentActivity implements ViewPager.OnPa
             ImageView imageTutorial = (ImageView) view.findViewById(R.id.imageTutorial);
 
             if (!sFileName.equals("")) {
-                imageTutorial.setImageResource(getContext().getResources().getIdentifier(sFileName, "drawable", getContext().getPackageName()));
+                Resources resource = getContext().getResources();
+                imageTutorial.setImageBitmap(Commons.getResizeBitmapFromId(resource, resource.getIdentifier(sFileName, "drawable", getContext().getPackageName()), Commons.getDisplaySize(getContext())));
             }
             return view;
         }

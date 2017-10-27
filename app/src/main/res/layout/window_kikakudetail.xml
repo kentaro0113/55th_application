@@ -35,7 +35,7 @@
                 android:id="@+id/imagePRCut"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:srcCompat="@drawable/dummy" />
+                android:src="@null" />
 
             <TextView
                 android:id="@+id/textLocation"

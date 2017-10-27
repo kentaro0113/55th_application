@@ -20,6 +20,10 @@
     <string name="TitleHappi">はっぴの部屋</string>
     <string name="TitleSetting">設定</string>
 
+    <string name="InfoKikakuTitle">実行委員会企画からのお知らせ</string>
+    <string name="InfoNewsTitle">最新情報</string>
+
+
     <string name="SearchCaptionDay">日付</string>
     <string name="SearchCaptionGenre">ジャンル</string>
     <string name="SearchCaptionFreeWord">フリーワード</string>

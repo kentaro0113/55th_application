@@ -14,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,7 +32,7 @@ public class InfoActivity extends Fragment {
     public static final int INFO_INDEX_MESSAGE = 3;
     public static final int INFO_INDEX_TIME    = 4;
 
-    private ListView listview2;
+    private ListView tableNewsList;
     private AlertDialog alertInfo = null;
     private LinearLayout viewInfo = null;
 
@@ -40,31 +44,26 @@ public class InfoActivity extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_info, container, false);
 
-        listview2 = (ListView) view.findViewById(R.id.listview2);
+        tableNewsList = (ListView) view.findViewById(R.id.tableNewsList);
 
-        int nCount = Commons.readInt(getActivity(), "category_count" + Statics.DATA_CATEGORY_INFO);
-        arrInfoItem = new InfoItem[nCount];
-        // 新着情報を読み込む
-        // [フォーマット]
-        // 1,[No],[件名],[本文],[時間]
-        // ・新着情報はcategory_count1の件数分をNoの降順で読み込む
-        // ・所定のフォーマットに当てはまらない記事は読み込まない
-        int h = 0;
-        for(int i = nCount - 1; i >= 0; --i) { // 降順にするためにデクリメントにする
-            arrInfoItem[i] = new InfoItem();
-            while(h < Statics.LIMIT_COUNT_NO) {
-                String sBuf = Commons.readString(getActivity(), "data" + Statics.DATA_CATEGORY_INFO + "_" + h);
-                ++h;
-                if(arrInfoItem[i].setData(sBuf)) {
-                    break;
+        String sNews = Commons.readString(getContext(), "data_news");
+        if(sNews != null) {
+            try {
+                JSONArray arrayNewsData = new JSONArray(sNews);
+                arrInfoItem = new InfoItem[arrayNewsData.length()];
+                for(int i = 0; i < arrayNewsData.length(); ++i) {
+                    arrInfoItem[i] = new InfoItem();
+                    arrInfoItem[i].setData(arrayNewsData.getJSONObject(i));
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
 
         // 新着情報をリストに反映する
         InfoListAdapter arrayAdapterInfo = new InfoListAdapter(getActivity(), 0, arrInfoItem);
-        listview2.setAdapter(arrayAdapterInfo);
-        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        tableNewsList.setAdapter(arrayAdapterInfo);
+        tableNewsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             // 新着情報の項目をタップした時の処理
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -72,11 +71,11 @@ public class InfoActivity extends Fragment {
 
                 // それぞれ文言を設定して表示する
                 TextView textTitle = (TextView) viewInfo.findViewById(R.id.textTitle);
-                textTitle.setText(item.getNo() + ". " + item.getTitle());
+                textTitle.setText(item.getTitle());
                 TextView textTime = (TextView) viewInfo.findViewById(R.id.textTime);
-                textTime.setText(item.getTime("M/d h:m:s"));
+                textTime.setText(item.getTime());
                 TextView textMessage = (TextView) viewInfo.findViewById(R.id.textMessage);
-                textMessage.setText(item.getMessage());
+                textMessage.setText(item.getDetail());
                 alertInfo.show();
             }
         });
@@ -98,40 +97,53 @@ public class InfoActivity extends Fragment {
 
 // 新着情報管理クラス
 class InfoItem {
-    private int nNo;            // 管理番号
-    private String sTitle;      // タイトル
-    private String sMessage;    // 本文
-    private String sTime;       // 登録時間
+    private JSONObject data;
 
     public InfoItem(){
-
+        data = null;
     }
 
-    public boolean setData(String sSource) {
+    public boolean setData(JSONObject data) {
         try {
-            String[] arrBuf = sSource.split(",");
-            nNo = Integer.parseInt(arrBuf[InfoActivity.INFO_INDEX_NO]);
-            sTitle = arrBuf[InfoActivity.INFO_INDEX_TITLE];
-            sMessage = arrBuf[InfoActivity.INFO_INDEX_MESSAGE];
-            sTime = arrBuf[InfoActivity.INFO_INDEX_TIME];
+            this.data = data;
         } catch (Exception e) {
             return false;
         }
         return true;
     }
 
-    public int getNo() {
-        return nNo;
+    public int getId() {
+        try {
+            return data.getInt("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
     public String getTitle() {
-        return sTitle;
+        try {
+            return data.getString("title");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
-    public String getMessage() {
-        return sMessage;
+    public String getDetail() {
+        try {
+            return data.getString("detail");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
-    public String getTime(String sFormat) {
-        SimpleDateFormat sdf = new SimpleDateFormat(sFormat);
-        return sdf.format(new Date(Long.parseLong(sTime) * 1000));
+    public String getTime() {
+        try {
+            String sTime = data.getString("update_time");
+            return sTime.substring(0, 9);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }
@@ -160,8 +172,20 @@ class InfoListAdapter extends ArrayAdapter<InfoItem> {
         TextView textTitle = (TextView) convertView.findViewById(R.id.textTitle);
         TextView textTime = (TextView) convertView.findViewById(R.id.textTime);
         textTitle.setText(item.getTitle());
-        textTime.setText(item.getTime("M/d h:m:s"));
+        textTime.setText(item.getTime());
 
         return convertView;
     }
 }
+
+/*
+        case BUTTON_INFO_COSPLAY:
+        case BUTTON_INFO_GRANDPRIX:
+        case BUTTON_INFO_GOODS:
+        case BUTTON_INFO_KIKAKU:
+            infoKikakuView = [AppModule getStoryboardView:@"InfoKikakuView"];
+            [infoKikakuView setViewId:(int)button.tag parent:self];
+            [self presentViewController:infoKikakuView animated:YES completion:nil];
+            break;
+
+ */

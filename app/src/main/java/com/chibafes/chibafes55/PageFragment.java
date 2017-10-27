@@ -199,8 +199,6 @@ class KikakuListAdapter extends ArrayAdapter<KikakuItem> {
         textName.setText(item.getGroupName());
         TextView textSummary = (TextView) convertView.findViewById(R.id.textGroupSummary);
         textSummary.setText(item.getSummary());
-        TextView textPlace = (TextView) convertView.findViewById(R.id.textGroupPlace);
-        textPlace.setText(item.getPlace());
 
         return convertView;
     }
