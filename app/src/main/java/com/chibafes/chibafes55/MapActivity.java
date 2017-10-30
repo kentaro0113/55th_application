@@ -1,23 +1,30 @@
 package com.chibafes.chibafes55;
 
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.longevitysoft.android.xml.plist.domain.Array;
 import com.qozix.tileview.TileView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by aki09 on 2017/09/08.
  */
 
 public class MapActivity extends Fragment {
-    private Array arraySpotList = null;
+    private MapItem[] arraySpotList = null;
     private TileView imageMap = null;
     private ListView listView;
 
@@ -63,47 +70,92 @@ public class MapActivity extends Fragment {
         imageMap.addDetailLevel(0.125f, newImage + "/125/%d_%d.png");
 
         // スポット情報を取得する
-        /*
-        PList path = Commons.getParsedPlist(this, "SpotList.plist");
-        Array list = (Array) path.getRootElement();
-        arraySpotList = (Array) list.get(nNewMap);
-
-        String[] data = new String[arraySpotList.size()];
-        for(int i = 0;i < arraySpotList.size(); ++i) {
-            Dict dict = (Dict) arraySpotList.get(i);
-            data[i] = dict.getConfiguration("name").getValue();
+        String sMap = Commons.readString(getContext(), "data_map");
+        arraySpotList = null;
+        if(sMap != null) {
+            try {
+                JSONArray array = new JSONArray(sMap);
+                arraySpotList = new MapItem[array.length()];
+                for(int i = 0; i < array.length(); ++i) {
+                    arraySpotList[i] = new MapItem();
+                    arraySpotList[i].setData(array.getJSONObject(i));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
-        ListView listSpot = (ListView)findViewById(R.id.listSpot);
+
+        String[] data = new String[arraySpotList.length];
+        for(int i = 0;i < arraySpotList.length; ++i) {
+            data[i] = arraySpotList[i].getStringValue("name");
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, data);
+        ListView listSpot = (ListView) view.findViewById(R.id.listSpot);
         listSpot.setAdapter(arrayAdapter);
 
         listSpot.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Dict dic = (Dict) arraySpotList.get(position);
+                MapItem item = arraySpotList[position];
 
                 for(int i = 0; i < imageMap.getMarkerLayout().getChildCount(); ++i) {
                     ImageView imageView = (ImageView) imageMap.getMarkerLayout().getChildAt(i);
-                    if((dic.getConfiguration("name").getValue()).equals(((Dict)imageView.getTag()).getConfiguration("name").getValue())){
+                    if((item.getStringValue("name")).equals(((MapItem)imageView.getTag()).getStringValue("name"))){
                         imageMap.moveToMarker(imageView, true);
                         break;
                     }
                 }
             }
         });
-
         // スポットにボタンを配置する
-        for (int i = 0; i < arraySpotList.size(); ++i) {
-            Dict dic = (Dict) arraySpotList.get(i);
-            ImageView imageView = new ImageView(this);
-            imageView.setImageResource(R.drawable.pin);
-            imageView.setTag(dic);
-            imageView.setOnClickListener(markerClickListener);
-            imageMap.addMarker(imageView, dic.getConfigurationInteger("x").getValue(), dic.getConfigurationInteger("y").getValue(), -0.5f, -1.0f);
+        for (int i = 0; i < arraySpotList.length; ++i) {
+            MapItem item = arraySpotList[i];
+            ImageView imageView = new ImageView(getContext());
+            Point size = Commons.getDisplaySize(getContext());
+            size.x /= 32;
+            imageView.setImageBitmap(Commons.getResizeBitmapFromId(getContext().getResources(), R.drawable.pin, size));
+            //imageView.setImageResource(R.drawable.pin);
+            imageView.setTag(item);
+            //imageView.setOnClickListener(markerClickListener);
+            imageMap.addMarker(imageView, item.getIntValue("lat"), item.getIntValue("lon"), -0.5f, -1.0f);
         }
-        */
-
         imageMap.setScale(0.3f);
 
+    }
+}
+
+
+// 新着情報管理クラス
+class MapItem{
+    private JSONObject data;
+
+    public MapItem(){
+        data = null;
+    }
+
+    public boolean setData(JSONObject data) {
+        try {
+            this.data = data;
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public String getStringValue(String key) {
+        try {
+            return data.getString(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    public int getIntValue(String key) {
+        try {
+            return data.getInt(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

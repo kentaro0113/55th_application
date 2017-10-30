@@ -12,11 +12,16 @@ import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * MainMenu Activity
@@ -35,6 +40,7 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
     private int nQuestionType;
     private Spinner spinnerSelect;
     private EditText editComment;
+    private boolean bAppeared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,8 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
         onClickButtonInfo(null);
 
         // 画面遷移時に状態によってダイアログを表示する
-        checkStartDialog();
+        bAppeared = false;
+        checkPopup();
     }
 
     @Override
@@ -106,20 +113,78 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
         startActivity(intent);
     }
 
-    private boolean checkStartDialog() {
-        // 当日最初のログイン時にはっぴガチャポイントを付与
+    private void checkPopup() {
+        // 当日初回起動かどうかのチェック
         String sLastRunDay = Commons.readString(this, "LastRunDay");
         String sToday = Commons.getTimeString("yyyyMMdd");
         if(!sToday.equals(sLastRunDay)) {
-            return true;
+            // 初回起動ならはっぴポイントを加算する
+            int nGetPoint = 5;
+            Commons.writeInt(this, "happi_point", Commons.readInt(this, "happi_point") + nGetPoint);
+            Commons.writeString(this, "LastRunDay", sToday);
+
+            new AlertDialog.Builder(this)
+                    .setMessage(String.format(getResources().getString(R.string.GetLoginBonus), nGetPoint))
+                    .setPositiveButton("OK",  new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            checkPopup();
+                        }
+                    }).show();
+            return;
         }
 
-        // 新規アンケートのチェック
-        {
+        if(!bAppeared) {
+            // アンケートのチェック
+            String sEnquete = Commons.readString(this, "data_enquete");
+            if(sEnquete != null) {
+                try {
+                    JSONArray jsonArray = new JSONArray(sEnquete);
+                    JSONObject json = jsonArray.getJSONObject(0);
+                    nQuestionNo = json.getInt("id");
+                    int nAnswerNo = Commons.readInt(this, "answer_no");
+                    if ((nAnswerNo == 0 || nAnswerNo != nQuestionNo) && nQuestionNo != 0) {
+                        ScrollView viewEnquete = (ScrollView) getLayoutInflater().inflate(R.layout.enquete_window_view, null);
+                        TextView textQuestion = (TextView) viewEnquete.findViewById(R.id.textQuestion);
+                        textQuestion.setText(json.getString("question"));
+                        spinnerSelect = (Spinner) viewEnquete.findViewById(R.id.spinnerSelect);
+                        editComment = (EditText) viewEnquete.findViewById(R.id.editComment);
 
+                        nQuestionType = Statics.TYPE_SELECT;
+                        String sAnswer = json.getString("answer");
+                        if(sAnswer == null || sAnswer.length() <= 0) {
+                            nQuestionType = Statics.TYPE_TEXT;
+                        }
+                        switch (nQuestionType) {
+                            case Statics.TYPE_SELECT:
+                                String[] arrAnswers = sAnswer.split(",");
+                                spinnerSelect.setVisibility(View.VISIBLE);
+                                editComment.setVisibility(View.GONE);
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                                        android.R.layout.simple_spinner_item, arrAnswers);
+                                spinnerSelect.setAdapter(adapter);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerSelect.setSelection(0);
+                                break;
+
+                            case Statics.TYPE_TEXT:
+                                spinnerSelect.setVisibility(View.GONE);
+                                editComment.setVisibility(View.VISIBLE);
+                                editComment.setText("");
+                                break;
+                        }
+
+                        alartEnquete = new AlertDialog.Builder(MainMenuActivity.this)
+                                .setView(viewEnquete)
+                                .show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            bAppeared = true;
+            return;
         }
-
-        return false;
     }
 
     @Override
@@ -162,19 +227,19 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
     // アンケート送信ボタンが押された時
     public void onClickSend(View view) {
         // 送信用パラメータとして、アンケート情報を文字列として保持
-        String paramString = "no=" + nQuestionNo + "&id=" + Commons.readLong(this, "UserID") + "&course=" + Commons.readInt(this, "Course");
+        String paramString = "question_id=" + nQuestionNo + "&user_id=" + Commons.readLong(this, "UserID");
         // アンケートの種類による分岐
         switch(nQuestionType) {
             // 選択式
             case Statics.TYPE_SELECT: {
                 // 送信用パラメータに選択肢の番号を追加
-                paramString = paramString + "&answer=" + spinnerSelect.getSelectedItemPosition();
+                paramString = paramString + "&answer_select=" + spinnerSelect.getSelectedItemPosition() + "&answer_word";
                 break;
             }
             // 記述式
             case Statics.TYPE_TEXT: {
                 // 送信用パラメータに回答文の情報を追加
-                paramString = paramString + "&answer=" + editComment.getText();
+                paramString = paramString + "&answer_select=-1&answer_word=" + editComment.getText();
                 break;
             }
         }
@@ -196,24 +261,29 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
     public void postExecute(String result, boolean bError) {
         if(!bError) {
             // 通信に成功した場合
-            // 回答済みのアンケート番号を今回のアンケート番号に更新する
-            Commons.writeInt(this, "AnswerNo", nQuestionNo);
-            // 正常に完了した旨のダイアログを表示
-            new AlertDialog.Builder(this)
-                    .setTitle(getResources().getString(R.string.EnqueteFinishTitle))
-                    .setMessage(getResources().getString(R.string.EnqueteFinish))
-                    .setPositiveButton("OK", null)
-                    .show();
+            if(result.indexOf("OK") >= 0) {
+                int nGetPoint = 10;
+                Commons.writeInt(this, "happi_point", Commons.readInt(this, "happi_point") + nGetPoint);
+                // 回答済みのアンケート番号を今回のアンケート番号に更新する
+                Commons.writeInt(this, "answer_no", nQuestionNo);
+                // 正常に完了した旨のダイアログを表示
+                new AlertDialog.Builder(this)
+                        .setTitle(getResources().getString(R.string.EnqueteFinishTitle))
+                        .setMessage(String.format(getResources().getString(R.string.EnqueteFinish), nGetPoint))
+                        .setPositiveButton(getResources().getString(R.string.ButtonOk), null)
+                        .show();
+            }
         }
         else {
             // エラーが発生した旨のダイアログを表示
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.EnqueteErrorTItle))
                     .setMessage(getResources().getString(R.string.EnqueteError))
-                    .setPositiveButton("OK", null)
+                    .setPositiveButton(getResources().getString(R.string.ButtonOk), null)
                     .show();
         }
     }
+
     public void progressUpdate(int progress) {
     }
     public void cancel() {
@@ -221,8 +291,12 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
         new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.EnqueteErrorTItle))
                 .setMessage(getResources().getString(R.string.EnqueteError))
-                .setPositiveButton("OK", null)
+                .setPositiveButton(getResources().getString(R.string.ButtonOk), null)
                 .show();
     }
+
+
+
+
 }
 

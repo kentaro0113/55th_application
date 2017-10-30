@@ -1,5 +1,6 @@
 package com.chibafes.chibafes55;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -32,12 +33,36 @@ public class HappiActivity extends Fragment {
 
         setHappiSerif(view, Statics.HAPPI_SERIF_NORMAL);
 
-
         Button buttonHappi = (Button) view.findViewById(R.id.buttonHappi);
         buttonHappi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setHappiSerif(view, Statics.HAPPI_SERIF_TAP);
+            }
+        });
+
+        ImageButton buttonProfile = (ImageButton) view.findViewById(R.id.buttonHappiProfile);
+        buttonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HappiProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        ImageButton buttonGacha = (ImageButton) view.findViewById(R.id.buttonHappiGacha);
+        buttonGacha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HappiGachaActivity.class);
+                startActivity(intent);
+            }
+        });
+        ImageButton buttonCollection = (ImageButton) view.findViewById(R.id.buttonHappiCollection);
+        buttonCollection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HappiCollectionActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -86,9 +111,9 @@ public class HappiActivity extends Fragment {
         if(nCourse == Statics.OTHER_COURSE) {
             nCourse = 0;
         }
-        ImageView imageLincle = (ImageView) findViewById(R.id.imageLincle);
-        int nImageId = getResources().getIdentifier("lincle" + nCourse + "_" + (Commons.getRandom(2) + 1), "drawable", getPackageName());
-        imageLincle.setImageResource(nImageId);
+        ImageView imageHappi = (ImageView) findViewById(R.id.imageHappi);
+        int nImageId = getResources().getIdentifier("Happi" + nCourse + "_" + (Commons.getRandom(2) + 1), "drawable", getPackageName());
+        imageHappi.setImageResource(nImageId);
         */
     }
 

@@ -32,7 +32,7 @@ public class SettingActivity extends Activity {
     public void onClickButtonAbout(View view){
         new AlertDialog.Builder(this)
                     .setTitle(null)
-                    .setMessage(getResources().getString(R.string.app_fullname) + "\n" + getResources().getString(R.string.AboutCopyright))
+                    .setMessage(getResources().getString(R.string.AboutCopyright))
                     .setPositiveButton(getResources().getString(R.string.ButtonOk),null)
                     .show();
     }

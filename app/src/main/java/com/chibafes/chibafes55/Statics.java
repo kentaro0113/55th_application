@@ -8,7 +8,8 @@ package com.chibafes.chibafes55;
 
 public class Statics {
     public static final String URL_UPDATE       = "http://demo.chibafes.com/appli/php/55th/update.php";
-    public static final String URL_ENQUETE      = "http://demo.chibafes.com/appli/php/55th/enquete.php";
+    public static final String URL_ENQUETE      = "http://demo.chibafes.com/appli/php/55th/enquete_answer.php";
+    public static final String URL_IMAGES      = "http://demo.chibafes.com/appli/images/55th/";
     public static final String URL_CHIBAFES_WEB = "http://chibafes.com/";
 
     public static final int NONE                = -1;
@@ -25,4 +26,6 @@ public class Statics {
     public static final int HAPPI_SERIF_NORMAL = 0;   // 通常時のセリフ
     public static final int HAPPI_SERIF_TAP    = 1;   // タップした時のセリフ
     public static final int HAPPI_SERIF_FIRST  = 2;   // 起動後最初のセリフ
+
+    public static final String IMAGE_PATH = "prcut/";
 }

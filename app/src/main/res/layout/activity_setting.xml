@@ -7,7 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@android:color/white">
 
         <ImageButton
             android:id="@+id/buttonBack"
@@ -18,7 +19,7 @@
             android:onClick="onClickButtonBack"
             android:padding="4dp"
             android:scaleType="fitStart"
-            android:src="?android:attr/homeAsUpIndicator"/>
+            android:src="@drawable/icon_back"/>
 
         <TextView
             android:id="@+id/Title"
@@ -27,7 +28,8 @@
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/TitleSetting"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="18sp"/>
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -41,29 +43,57 @@
             android:src="@null" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button_belong"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SettingBelong" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button_fontsize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SettingText" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/back_repeat" />
 
-    <Button
-        android:id="@+id/button_about_app"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickButtonAbout"
-        android:text="@string/SettingAbout" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button_to_web"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickButtonToWeb"
-        android:text="@string/SettingWeb" />
+            <Button
+                android:id="@+id/button_belong"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/SettingBelong"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/button_fontsize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/SettingText"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/button_about_app"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_setting_frame"
+                android:onClick="onClickButtonAbout"
+                android:text="@string/SettingAbout"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/button_to_web"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_setting_frame"
+                android:onClick="onClickButtonToWeb"
+                android:text="@string/SettingWeb"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

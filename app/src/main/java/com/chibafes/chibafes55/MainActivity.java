@@ -1,10 +1,27 @@
 package com.chibafes.chibafes55;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Main Activity
@@ -13,6 +30,7 @@ import android.view.Window;
  */
 
 public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCallback {
+    private TextView textProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +40,6 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
         // このActivityに関連づけるレイアウトの設定
         setContentView(R.layout.activity_main);
 
-
         String buf = Commons.readString(this, "lastdate");
         String paramString;
         if(buf == null) {
@@ -31,6 +48,9 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
         else {
             paramString = "lastdate=" + buf;
         }
+
+        textProgress = (TextView) findViewById(R.id.textProgress);
+        textProgress.setText("通信中\n");
 
         // アンケートや情報などをネットワーク更新する処理を開始する
         HttpPostAsync postObject = new HttpPostAsync(this);
@@ -54,8 +74,21 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
                 }
             }
             Commons.writeString(this, "lastdate", arrStr[0]);
+            checkRunState();
         }
-        checkRunState();
+        else {
+            // エラーが発生した旨のダイアログを表示
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.EnqueteErrorTItle))
+                    .setMessage(getResources().getString(R.string.ConnectionError2))
+                    .setPositiveButton(getResources().getString(R.string.ButtonOk), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            checkRunState();
+                        }
+                    })
+                    .show();
+        }
     }
     // 通信中の処理
     public void progressUpdate(int progress) {
@@ -96,13 +129,3 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
         return super.dispatchKeyEvent(event);
     }
 }
-
-/*
-- (void) requestFailed:(NSNotification*)notification {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"EnqueteErrorTItle", nil) message:NSLocalizedString(@"EnqueteError", nil) preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ButtonOk", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        [self checkRunState];
-    }]];
-    [self presentViewController:alert animated:YES completion:nil];
-
-*/

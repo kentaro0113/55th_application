@@ -1,6 +1,7 @@
 package com.chibafes.chibafes55;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -27,16 +28,11 @@ import java.util.Date;
 
 // 0903_kimura:ActivityからFragmentへ変更、それに伴う調整
 public class InfoActivity extends Fragment {
-    public static final int INFO_INDEX_NO      = 1;
-    public static final int INFO_INDEX_TITLE   = 2;
-    public static final int INFO_INDEX_MESSAGE = 3;
-    public static final int INFO_INDEX_TIME    = 4;
-
     private ListView tableNewsList;
     private AlertDialog alertInfo = null;
     private LinearLayout viewInfo = null;
 
-    private InfoItem[] arrInfoItem;
+    private InfoItem[] arrayInfoItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,13 +43,14 @@ public class InfoActivity extends Fragment {
         tableNewsList = (ListView) view.findViewById(R.id.tableNewsList);
 
         String sNews = Commons.readString(getContext(), "data_news");
+        arrayInfoItem = null;
         if(sNews != null) {
             try {
                 JSONArray arrayNewsData = new JSONArray(sNews);
-                arrInfoItem = new InfoItem[arrayNewsData.length()];
+                arrayInfoItem = new InfoItem[arrayNewsData.length()];
                 for(int i = 0; i < arrayNewsData.length(); ++i) {
-                    arrInfoItem[i] = new InfoItem();
-                    arrInfoItem[i].setData(arrayNewsData.getJSONObject(i));
+                    arrayInfoItem[i] = new InfoItem();
+                    arrayInfoItem[i].setData(arrayNewsData.getJSONObject(i));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -61,24 +58,26 @@ public class InfoActivity extends Fragment {
         }
 
         // 新着情報をリストに反映する
-        InfoListAdapter arrayAdapterInfo = new InfoListAdapter(getActivity(), 0, arrInfoItem);
-        tableNewsList.setAdapter(arrayAdapterInfo);
-        tableNewsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            // 新着情報の項目をタップした時の処理
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                InfoItem item = arrInfoItem[position];
+        if(arrayInfoItem != null) {
+            InfoListAdapter arrayAdapterInfo = new InfoListAdapter(getActivity(), 0, arrayInfoItem);
+            tableNewsList.setAdapter(arrayAdapterInfo);
+            tableNewsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                // 新着情報の項目をタップした時の処理
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    InfoItem item = arrayInfoItem[position];
 
-                // それぞれ文言を設定して表示する
-                TextView textTitle = (TextView) viewInfo.findViewById(R.id.textTitle);
-                textTitle.setText(item.getTitle());
-                TextView textTime = (TextView) viewInfo.findViewById(R.id.textTime);
-                textTime.setText(item.getTime());
-                TextView textMessage = (TextView) viewInfo.findViewById(R.id.textMessage);
-                textMessage.setText(item.getDetail());
-                alertInfo.show();
-            }
-        });
+                    // それぞれ文言を設定して表示する
+                    TextView textTitle = (TextView) viewInfo.findViewById(R.id.textTitle);
+                    textTitle.setText(item.getTitle());
+                    TextView textTime = (TextView) viewInfo.findViewById(R.id.textTime);
+                    textTime.setText(item.getTime());
+                    TextView textMessage = (TextView) viewInfo.findViewById(R.id.textMessage);
+                    textMessage.setText(item.getDetail());
+                    alertInfo.show();
+                }
+            });
+        }
         // 新着情報の詳細ウィンドウビューの設定
         viewInfo = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.window_info_detail, null);
         ImageButton buttonClose = (ImageButton) viewInfo.findViewById(R.id.buttonClose);
@@ -91,11 +90,49 @@ public class InfoActivity extends Fragment {
         });
         alertInfo = new AlertDialog.Builder(getActivity()).setView(viewInfo).create();
 
+        ImageButton buttonKikaku1 = (ImageButton) view.findViewById(R.id.buttonKikaku1);
+        buttonKikaku1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), KikakuInfoActivity.class);
+                intent.putExtra("page", 1);
+                startActivity(intent);
+            }
+        });
+        ImageButton buttonKikaku2 = (ImageButton) view.findViewById(R.id.buttonKikaku2);
+        buttonKikaku2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), KikakuInfoActivity.class);
+                intent.putExtra("page", 2);
+                startActivity(intent);
+            }
+        });
+        ImageButton buttonKikaku3 = (ImageButton) view.findViewById(R.id.buttonKikaku3);
+        buttonKikaku3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), KikakuInfoActivity.class);
+                intent.putExtra("page", 3);
+                startActivity(intent);
+            }
+        });
+        ImageButton buttonKikaku4 = (ImageButton) view.findViewById(R.id.buttonKikaku4);
+        buttonKikaku4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), KikakuInfoActivity.class);
+                intent.putExtra("page", 4);
+                startActivity(intent);
+            }
+        });
+
+
         return view;
     }
 }
 
-// 新着情報管理クラス
+// 最新情報管理クラス
 class InfoItem {
     private JSONObject data;
 
@@ -139,7 +176,7 @@ class InfoItem {
     public String getTime() {
         try {
             String sTime = data.getString("update_time");
-            return sTime.substring(0, 9);
+            return sTime.substring(0, 10);
         } catch (JSONException e) {
             e.printStackTrace();
         }

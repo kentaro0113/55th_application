@@ -29,6 +29,22 @@
             android:name=".SettingActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".HappiProfileActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".HappiGachaActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".HappiCollectionActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".KikakuInfoActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 
