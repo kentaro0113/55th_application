@@ -57,7 +57,7 @@ public class HappiGachaActivity extends Activity {
         if(Commons.readInt(this, "happi_point") >= HAPPI_GACHA_POINT) {
             buttonGacha.setText("ガチャをする(" + HAPPI_GACHA_POINT + "pt)");
             buttonGacha.setBackgroundColor(ContextCompat.getColor(this, R.color.colorButton));
-            buttonGacha.setTextColor(Color.CYAN);
+            buttonGacha.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
             buttonGacha.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

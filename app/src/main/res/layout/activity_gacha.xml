@@ -174,9 +174,9 @@
                             android:layout_margin="4dp"
                             android:layout_weight="1"
                             android:background="@android:color/white"
+                            android:gravity="right"
                             android:padding="12dp"
-                            android:text="TextView"
-                            android:textAlignment="textEnd" />
+                            android:text="TextView" />
                     </LinearLayout>
 
                 </FrameLayout>
@@ -223,6 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16dp"
+            android:textColor="?attr/colorPrimary"
             android:background="@color/colorButton"
             android:onClick="onClickGacha" />
 

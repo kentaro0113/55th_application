@@ -48,6 +48,7 @@
                         android:layout_weight="2"
                         android:background="@android:color/white"
                         android:gravity="center_vertical|center"
+                        android:padding="16dp"
                         android:text="TextView"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="16sp" />
@@ -90,26 +91,7 @@
 
             </LinearLayout>
 
-        </LinearLayout><![CDATA[
-
-
-
-
-
-
-
-    ="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-
-
-
-
-
-
-
-
-    ]]>
+        </LinearLayout>
     </FrameLayout>
 
     <LinearLayout
@@ -126,7 +108,7 @@
             android:background="@null"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/happi_uchiwa" />
+            android:src="@drawable/happi_uchiwa1" />
 
         <ImageButton
             android:id="@+id/buttonHappiGacha"
@@ -136,7 +118,7 @@
             android:background="@null"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/happi_uchiwa" />
+            android:src="@drawable/happi_uchiwa2" />
 
         <ImageButton
             android:id="@+id/buttonHappiCollection"
@@ -146,7 +128,7 @@
             android:background="@null"
             android:padding="8dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/happi_uchiwa" />
+            android:src="@drawable/happi_uchiwa3" />
 
     </LinearLayout>
 

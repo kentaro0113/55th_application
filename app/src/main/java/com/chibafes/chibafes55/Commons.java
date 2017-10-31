@@ -95,6 +95,14 @@ public class Commons {
         }
     }
 
+    // 保存値を削除する
+    public static void deleteSave(Context context, String key) {
+        SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor e = pref.edit();
+        e.remove(key);
+        e.commit();
+    }
+
     // 文字列を読み込む
     public static String readString(Context context, String key) {
         SharedPreferences pref = context.getSharedPreferences("pref", Context.MODE_PRIVATE);

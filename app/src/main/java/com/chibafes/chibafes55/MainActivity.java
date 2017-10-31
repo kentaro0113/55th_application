@@ -48,6 +48,13 @@ public class MainActivity extends Activity implements HttpPostAsync.AsyncTaskCal
         else {
             paramString = "lastdate=" + buf;
         }
+        long nUserId = Commons.readLong(this, "UserID");
+        if(nUserId == Statics.NONE) {
+            paramString = paramString + "&user_id=0";
+        }
+        else {
+            paramString = paramString + "&user_id=" + nUserId;
+        }
 
         textProgress = (TextView) findViewById(R.id.textProgress);
         textProgress.setText("通信中\n");

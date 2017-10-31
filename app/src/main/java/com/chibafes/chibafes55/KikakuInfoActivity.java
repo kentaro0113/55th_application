@@ -18,6 +18,7 @@ import android.widget.ListView;
 public class KikakuInfoActivity extends Activity {
 
     private static final String URL_COSYPLAY = "https://docs.google.com/forms/d/e/1FAIpQLSc96Yydes0IUX2ytCchbEP8iKBonznZe-ji1tCpp8tA1LvhtA/viewform";
+    private static final String URL_COSYPLAY2 = "https://goo.gl/forms/8VOi0hHk06mqnkT43";
     private static final String URL_GRANDPRIX = "https://goo.gl/forms/AxdFYu1JIlHr5o9F2";
     private static final String URL_HAPPI_LINE = "https://store.line.me/stickershop/product/1169796/";
     private static final String URL_KIKAKU_OTHER1 = "https://twitter.com/chibafes_happi";
@@ -103,6 +104,10 @@ public class KikakuInfoActivity extends Activity {
                 break;
             case R.id.buttonKikakuInfo10:
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_KIKAKU_GUEST2));
+                startActivity(intent);
+                break;
+            case R.id.buttonKikakuInfo12:
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_COSYPLAY2));
                 startActivity(intent);
                 break;
         }

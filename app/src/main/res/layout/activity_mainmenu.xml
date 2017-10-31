@@ -97,7 +97,7 @@
             android:background="@null"
             android:onClick="onClickButtonHappi"
             android:scaleType="fitCenter"
-            android:src="@drawable/icon_happi2" />
+            android:src="@drawable/icon_happi" />
     </LinearLayout>
 
     <FrameLayout

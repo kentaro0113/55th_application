@@ -45,6 +45,10 @@
             android:name=".KikakuInfoActivity"
             android:screenOrientation="portrait">
         </activity>
+
+        <receiver
+            android:name=".NotificationReceiver"
+            android:process=":remote"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

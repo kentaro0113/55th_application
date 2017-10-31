@@ -99,6 +99,7 @@ public class KikakuAllActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 alertSearch.show();
+                scrollSearch.scrollTo(0, 0);
             }
         });
         Point displaySize = Commons.getDisplaySize(getContext());
@@ -321,6 +322,7 @@ public class KikakuAllActivity extends Fragment {
         if (nTarget == BUTTON_KIKAKU_TAB_SEARCH) {
             buttonTabSearch.setAlpha((float) 1.0);
             buttonTabFavorite.setAlpha((float) 0.3);
+            tableSearch.scrollTo(0, 0);
             viewSearch.setVisibility(View.VISIBLE);
             viewFavorite.setVisibility(View.INVISIBLE);
         } else if (nTarget == BUTTON_KIKAKU_TAB_FAVORITE) {
@@ -346,6 +348,7 @@ public class KikakuAllActivity extends Fragment {
             }
             KikakuListAdapter arrayAdapterKikaku = new KikakuListAdapter(getActivity(), 0, arrayFavoriteData);
             tableFavorite.setAdapter(arrayAdapterKikaku);
+            tableFavorite.scrollTo(0, 0);
             viewFavorite.setVisibility(View.VISIBLE);
         }
     }

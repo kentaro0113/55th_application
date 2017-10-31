@@ -96,13 +96,11 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
         transaction.commit();
         textTitle.setText(getResources().getString(nTitleId));
         // タブの表示変更
-        for(int i = 0; i < 4; ++i) {
+        for(int i = 0; i < 5; ++i) {
             String sName = arrTabImages[i];
             ImageButton button = (ImageButton) findViewById(arrTabItemIds[i]);
-            button.setBackgroundColor(Color.argb(255, 255, 255, 255));
             if(i == index) {
                 sName = sName + "_on";
-                button.setBackgroundColor(Color.argb(255, 0, 0, 0));
             }
             button.setImageResource(getResources().getIdentifier(sName, "drawable", getPackageName()));
         }
@@ -133,6 +131,27 @@ public class MainMenuActivity extends FragmentActivity implements HttpPostAsync.
                     }).show();
             return;
         }
+
+        // 特別ログインボーナス（11/2~5のログイン時に追加で30pt）
+        if(sToday.equals("20171102") || sToday.equals("20171103") || sToday.equals("20171104") || sToday.equals("20171105")) {
+            if(Commons.readInt(this, "login" + sToday) == 0) {
+
+                int nGetPoint = 30;
+                Commons.writeInt(this, "happi_point", Commons.readInt(this, "happi_point") + nGetPoint);
+                Commons.writeInt(this, "login" + sToday, 1);
+
+                new AlertDialog.Builder(this)
+                        .setMessage(String.format(getResources().getString(R.string.GetLoginBonus2), nGetPoint))
+                        .setPositiveButton("OK",  new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                checkPopup();
+                            }
+                        }).show();
+                return;
+            }
+        }
+
 
         if(!bAppeared) {
             // アンケートのチェック
