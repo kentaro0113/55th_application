@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\43d8394e346289591006cb6e7ee685ead1acf79e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\classes_e528a59328ca435062819bad038c74f377ac7110.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\0a57fbcad2878a76676e3a2f106796a34419ecb2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\classes_ea99385bf15a2a210d4330fdc42c35ad1ef5a31e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\f9ac831786831ff765acdcd0056f5cc1d61fc40d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\classes_91b76c4acfcafc7d6d827b886fc683e152e9d7c6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\a5f8e4fd86e185cf2d2a85a7c639c9d2fe63b9a3\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9118cf764b6cd8badf852eff7ca3922f5edc8b40">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\classes_1a0b8e0b02f2461f7deb3298dcc1dc1ed76a048d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\support-annotations-23.4.0_8be5f38e684af45e14f8957c2968156b755dc57d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\constraint-layout-solver-1.0.2_7267da13041d88e64e668727ed1b44c293af925f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\087f8835dd413aa69754f39c5e9a0afbdc14303b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\classes_a0c1785feef025f3e5ff34f8f5fac62d8b1b9d19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\5c921e0f2966b63ef4bec3e5c60857781bace38f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\classes_31fbe587ff2d09023303980fb5dc04a1ccb92bb6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\8fd8a7b33b452812ebb941da1ae555eb534f2f7e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\classes_4217ab5fa72ff733948edfaf10298f6f419881ae.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\43d8394e346289591006cb6e7ee685ead1acf79e\output\jars\libs\internal_impl-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\internal_impl-23.4.0_8674ff4ea2568f850c2819bf8e60692b74534d79.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\steee\.android\build-cache\f523a31aaf8c7b3d851d1da1a0f294fd866f9faa\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="C:\Users\steee\Desktop\55th-android\app\build\intermediates\pre-dexed\debug\classes_d819ac7dbc75a6ba2d966991b4ed08b3b4d9b335.jar" />
+    </item>
+
+</items>
